@@ -20,7 +20,13 @@ namespace Ex02
             r_Rows = i_NumOfGuessings; //num of guessing are the num of rows we need
             m_GameBoard = i_GameBoard;
         }
-        public static void FillArray<T>(T[,] o_Array, T i_Value)
+
+        public T[,] GetBoard()
+        {
+            return m_GameBoard;
+        }
+
+        public static void InitFillArray<T>(T[,] o_Array, T i_Value)
         {
             for (int i = 0; i < o_Array.GetLength(0); i++)
             {
@@ -48,39 +54,39 @@ namespace Ex02
         //    }
         //}
 
-        //public void PrintBoard()
-        //{
-        //    int arrayIndex = 0;
-        //    Console.WriteLine("Current board status:\n");
-        //    Console.WriteLine("|Pins:    |Result:|");
-        //    Console.WriteLine("|=========|=======|");
-        //    Console.WriteLine("| # # # # |       |");
+        public void PrintBoard()
+        {
+            int arrayIndex = 0;
+            Console.WriteLine("Current board status:\n");
+            Console.WriteLine("|Pins:    |Result:|");
+            Console.WriteLine("|=========|=======|");
+            Console.WriteLine("| # # # # |       |");
 
-        //    foreach (T Letter in m_GameBoard)
-        //    {
-        //        if (IsStartOfARow(arrayIndex))
-        //        {
-        //            Console.Write("| ");
-        //        }
-        //        else if (IsStartOfAResult(arrayIndex))
-        //        {
-        //            Console.Write("|");
-        //        }
+            foreach (T Letter in m_GameBoard)
+            {
+                if (IsStartOfARow(arrayIndex))
+                {
+                    Console.Write("| ");
+                }
+                else if (IsStartOfAResult(arrayIndex))
+                {
+                    Console.Write("|");
+                }
 
-        //        if (IsEndOfARow(arrayIndex + 1))
-        //        {
-        //            Console.Write("{0}", Letter);
-        //            Console.WriteLine("|");
+                if (IsEndOfARow(arrayIndex + 1))
+                {
+                    Console.Write("{0}", Letter);
+                    Console.WriteLine("|");
 
-        //        }
-        //        else
-        //        {
-        //            Console.Write("{0} ", Letter);
-        //        }
+                }
+                else
+                {
+                    Console.Write("{0} ", Letter);
+                }
 
-        //        arrayIndex++;
-        //    }
-        //}
+                arrayIndex++;
+            }
+        }
 
         public bool IsStartOfARow(int i_Index)
         {

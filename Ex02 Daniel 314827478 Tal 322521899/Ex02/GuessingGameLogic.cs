@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Ex02
-{ 
+{
     public class GuessingGameLogic<T>
     {
         private GameBoard<T> m_GameBoard;
@@ -15,6 +15,11 @@ namespace Ex02
         {
             m_GameBoard = i_GameBoard;
             r_NumOfGuessings = i_NumOfGuessings;
+        }
+
+        public GameBoard<T>GetBoard()
+        {
+            return m_GameBoard;
         }
     }
 }
