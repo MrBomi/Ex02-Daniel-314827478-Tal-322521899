@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|c:\\users\\daniel.bomendil\\desktop\\c# course\\git\\ex02-daniel-314827478-tal-322521899\\ex02 daniel 314827478 tal 322521899\\ex02\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|c:\\users\\daniel.bomendil\\desktop\\c# course\\git\\ex02-daniel-314827478-tal-322521899\\ex02 daniel 314827478 tal 322521899\\ex02\\userinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|solutionrelative:ex02\\userinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\ex02\\guessinggamelogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|solutionrelative:ex02\\guessinggamelogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\ex02\\gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|solutionrelative:ex02\\gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\ex02\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|solutionrelative:ex02\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\ex02\\converter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BF7DCD6-6EB8-4874-B12A-49B0C66387EE}|Ex02\\Ex02.csproj|solutionrelative:ex02\\converter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,13 +58,65 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Converter.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\Converter.cs",
+              "RelativeDocumentMoniker": "Ex02\\Converter.cs",
+              "ToolTip": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\Converter.cs",
+              "RelativeToolTip": "Ex02\\Converter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T19:30:06.387Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GuessingGameLogic.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\GuessingGameLogic.cs",
+              "RelativeDocumentMoniker": "Ex02\\GuessingGameLogic.cs",
+              "ToolTip": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\GuessingGameLogic.cs",
+              "RelativeToolTip": "Ex02\\GuessingGameLogic.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T12:46:35.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameBoard.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\GameBoard.cs",
+              "RelativeDocumentMoniker": "Ex02\\GameBoard.cs",
+              "ToolTip": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\GameBoard.cs",
+              "RelativeToolTip": "Ex02\\GameBoard.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAewBEAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T11:32:02.152Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "UserInterface.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\UserInterface.cs",
+              "RelativeDocumentMoniker": "Ex02\\UserInterface.cs",
+              "ToolTip": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\UserInterface.cs",
+              "RelativeToolTip": "Ex02\\UserInterface.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAcwAsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T10:59:59.302Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\Program.cs",
               "RelativeDocumentMoniker": "Ex02\\Program.cs",
               "ToolTip": "C:\\Users\\daniel.bomendil\\Desktop\\C# Course\\Git\\Ex02-Daniel-314827478-Tal-322521899\\Ex02 Daniel 314827478 Tal 322521899\\Ex02\\Program.cs",
               "RelativeToolTip": "Ex02\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-13T09:58:53.743Z",
               "EditorCaption": ""

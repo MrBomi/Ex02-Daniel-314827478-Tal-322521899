@@ -1,0 +1,9 @@
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\obj\Debug\Ex02.csproj.AssemblyReference.cache
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\obj\Debug\Ex02.csproj.CoreCompileInputs.cache
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\bin\Debug\Ex02.exe.config
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\bin\Debug\Ex02.exe
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\bin\Debug\Ex02.pdb
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\bin\Debug\Ex02.ConsoleUtils.dll
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\obj\Debug\Ex02.csproj.Up2Date
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\obj\Debug\Ex02.exe
+C:\Users\daniel.bomendil\Desktop\C# Course\Git\Ex02-Daniel-314827478-Tal-322521899\Ex02 Daniel 314827478 Tal 322521899\Ex02\obj\Debug\Ex02.pdb
