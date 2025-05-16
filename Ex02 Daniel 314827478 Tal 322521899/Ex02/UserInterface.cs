@@ -11,28 +11,63 @@ namespace Ex02
     {
         private const ushort k_ColsInGameBoard = 8;
         private GuessingGameLogic<char> m_GameLogic = null;
+        private const char m_CorrectSpotSign = 'V';
+        private const char m_InCorrectSpotSign2 = 'X';
 
         public void StartGuessingGame()
         {
-            bool isSecretCodeExposed = false;
             bool isSecretCodeGuessed = false;
+            bool isNewGame = false;
+            char[] singleInputFromUser;
+            bool isGameActive = true;
+            bool isPlayerWon = false;
 
-            initGuessingGame();
-            for (int i = 0; i < m_GameLogic.NumOfGuessings; i++)
+            while (isGameActive)
             {
-                PrintBoard(isSecretCodeExposed);
-                isSecretCodeGuessed = m_GameLogic.PlayerSingleTurn(getSingleGuessFromUser(), 'V', 'X');
-                if (isSecretCodeGuessed)
+                initGuessingGame();
+                for (int i = 0; i < m_GameLogic.NumOfGuessings; i++)
                 {
-                    //Player won prints
-                    //Ask if new game
-                    break;
+                    PrintBoard(false);
+                    singleInputFromUser = getSingleGuessFromUser();
+                    if (new string(singleInputFromUser) == "Q")
+                    {
+                        Console.WriteLine("Bye Bye...");
+                        isGameActive = false;
+                        return;
+                    }
+                    else
+                    {
+                        isSecretCodeGuessed = m_GameLogic.PlayerSingleTurn(singleInputFromUser, m_CorrectSpotSign, m_InCorrectSpotSign2);
+                    }
+
+                    if (isSecretCodeGuessed)
+                    {
+                        winningPlayerAnnouncement();
+                        isPlayerWon = true;
+                        break;
+                    }
+                }
+                
+                if(!isPlayerWon)
+                {
+                    loosingPlayerAnnouncement();
+                }
+
+                isNewGame = askForNewGameFromUser();
+                if(isNewGame)
+                {
+                    isPlayerWon = false;
+                    isSecretCodeGuessed = false;
+                }
+                else
+                {
+                    Console.Write("Bye Bye...");
+                    isGameActive = false;
                 }
             }
-
         }
 
-        public void PrintBoard(bool i_IsAnswerRevealed)
+        public void PrintBoard(bool i_IsSecretCodeRevealed)
         {
             Ex02.ConsoleUtils.Screen.Clear();
             int arrayIndex = 0;
@@ -44,7 +79,7 @@ namespace Ex02
             Console.WriteLine("|Pins:    |Result:|");
             Console.WriteLine("|=========|=======|");
 
-            if (!i_IsAnswerRevealed)
+            if (!i_IsSecretCodeRevealed)
             {
                 Console.WriteLine("| # # # # |       |");
             }
@@ -53,6 +88,7 @@ namespace Ex02
                 Console.WriteLine("| {0} {1} {2} {3} |       |", computerSecretCode[0], computerSecretCode[1], computerSecretCode[2], computerSecretCode[3]);
             }
 
+            Console.WriteLine("|=========|=======|");
             foreach (char Letter in boardArray)
             {
                 if (boardToPrint.IsStartOfARow(arrayIndex))
@@ -68,7 +104,7 @@ namespace Ex02
                 {
                     Console.Write("{0}", Letter);
                     Console.WriteLine("|");
-
+                    Console.WriteLine("|=========|=======|");
                 }
                 else
                 {
@@ -126,8 +162,11 @@ namespace Ex02
 
             if (i_InputToCheck.Length != 4)
             {
-                isCorrectInput = false;
-                Console.WriteLine("The length of the input should be 4 chars");
+                if (i_InputToCheck != "Q")
+                {
+                    isCorrectInput = false;
+                    Console.WriteLine("The length of the input should be 4 chars");
+                }
             }
             else if (hasDuplicateLetters(i_InputToCheck))
             {
@@ -152,7 +191,7 @@ namespace Ex02
 
         private static bool hasDuplicateLetters(string i_InputToCheck)
         {
-            bool isCorrectInput = false;
+            bool isInputContainDuplications = false;
 
             for (int i = 0; i < i_InputToCheck.Length; i++)
             {
@@ -160,13 +199,13 @@ namespace Ex02
                 {
                     if (i_InputToCheck[i] == i_InputToCheck[j])
                     {
-                        isCorrectInput = true;
+                        isInputContainDuplications = true;
                         break;
                     }
                 }
             }
 
-            return isCorrectInput;
+            return isInputContainDuplications;
         }
 
         private char[] GenerateSecretCode()
@@ -183,7 +222,7 @@ namespace Ex02
                     secretCode[i] = (char)('A' + rand.Next(8));
                 }
 
-                if (!hasDuplicateLetters(secretCode.ToString()))
+                if (!hasDuplicateLetters(new string(secretCode)))
                 {
                     isValidSecretCode = true;
                 }
@@ -215,6 +254,32 @@ namespace Ex02
             GameBoard<char> gameBoard = new GameBoard<char>(charArrayOfGameBoard, i_NumOfGuessings);
 
             return gameBoard;
+        }
+
+        private void winningPlayerAnnouncement()
+        {
+            PrintBoard(true);
+            Console.WriteLine("You guessed after {0} steps!", m_GameLogic.NumOfGuessings);
+        }
+        private bool askForNewGameFromUser()
+        {
+            string input;
+
+            Console.WriteLine("Would you like to start a new game? (Y/N)");
+            input = Console.ReadLine();
+            while (input != "Y" && input != "N" )
+            {
+                Console.WriteLine("Invalid input. Please enter Y or N:");
+                input = Console.ReadLine();
+            }
+
+            return input == "Y";
+        }
+
+        private void loosingPlayerAnnouncement()
+        {
+            PrintBoard(true);
+            Console.WriteLine("No more guessing allowed. You lost!");
         }
     }
 }

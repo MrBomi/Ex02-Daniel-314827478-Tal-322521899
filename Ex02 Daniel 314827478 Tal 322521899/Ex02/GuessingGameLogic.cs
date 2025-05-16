@@ -49,22 +49,66 @@ namespace Ex02
             r_computerSecretCode = i_ComputerSecretCode;
         }
 
-        public bool PlayerSingleTurn(T[] i_PlayerSingleGuess, T i_CorrectSign, T i_IncorrectSign)
+        public bool PlayerSingleTurn(T[] i_PlayerSingleGuess, T i_CorrectSpotSign, T i_IncorrectSpotSign)
         {
             T[] singleGuessResutls;
 
-            singleGuessResutls = calculateGuessResults(i_PlayerSingleGuess, i_CorrectSign, i_IncorrectSign);
-
+            singleGuessResutls = calculateGuessResults(i_PlayerSingleGuess, i_CorrectSpotSign, i_IncorrectSpotSign);
             m_GameBoard.AppendSingleGuessToBoard(i_PlayerSingleGuess, m_CurrentRowToFill);
             m_GameBoard.AppendSingleGuessResultToBoard(singleGuessResutls, m_CurrentRowToFill);
             m_CurrentRowToFill++;
 
-            return false; // need to change
+            return IsPlayerGuessCorrect(singleGuessResutls, i_CorrectSpotSign);
         }
 
-        private T[] calculateGuessResults(T[] i_PlayerSingleGuess, T i_CorrectSign, T i_IncorrectSign)
+        private T[] calculateGuessResults(T[] i_PlayerSingleGuess, T i_CorrectSpotSign, T i_IncorrectSpotSign)
         {
-            return null;
+            LinkedList<T> guessResults = new LinkedList<T>();
+
+            for (int i = 0; i < i_PlayerSingleGuess.Length; i++)
+            {
+                if (i_PlayerSingleGuess[i].Equals(r_computerSecretCode[i]))
+                {
+                    guessResults.AddFirst(i_CorrectSpotSign);
+                    continue;
+                }
+
+                for (int j = 0; j < r_computerSecretCode.Length; j++)
+                {
+                    if((i != j) && (i_PlayerSingleGuess[i].Equals(r_computerSecretCode[j])))
+                    {
+                        guessResults.AddLast(i_IncorrectSpotSign);
+                        break;
+                    }
+                }
+            }
+
+            return guessResults.ToArray();
         }
+
+        public bool IsPlayerGuessCorrect(T[] i_PlayerSingleGuessResutls, T i_CorrectSpotSign)
+        {
+            bool isCorrectGuess = true;
+
+            if (i_PlayerSingleGuessResutls.Length < k_SecretCodeLength)
+            {
+                isCorrectGuess = false;
+            }
+            else
+            {
+                for (int i = 0 ; i < i_PlayerSingleGuessResutls.Length ; i++)
+                {
+                    if (!i_PlayerSingleGuessResutls[i].Equals(i_CorrectSpotSign))
+                    {
+                        isCorrectGuess = false;
+                        break;
+                    }
+                }
+            }
+
+            return isCorrectGuess;
+        }
+
+
     }
 }

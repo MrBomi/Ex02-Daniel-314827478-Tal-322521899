@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameBoard.cs" />
-    <Compile Include="Converter.cs" />
     <Compile Include="GuessingGameLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="UserInterface.cs" />
@@ -46,6 +45,7 @@
     <Reference Include="Ex02.ConsoleUtils">
       <HintPath>..\..\..\..\..\..\Downloads\DN_2025B_Ex02\Ex02.ConsoleUtils.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

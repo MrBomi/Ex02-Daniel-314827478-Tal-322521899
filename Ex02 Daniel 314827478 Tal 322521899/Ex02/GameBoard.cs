@@ -128,14 +128,18 @@ namespace Ex02
 
         public void AppendSingleGuessToBoard(T[] i_PlayerSingleGuess, ushort i_CurrentRowToFill)
         {
-
+            for (int i = 0 ; i < i_PlayerSingleGuess.Length ; i++)
+            { 
+                m_GameBoardArray[i_CurrentRowToFill, i] = i_PlayerSingleGuess[i];
+            }
         }
 
-        public void AppendSingleGuessResultToBoard(T[] i_PlayerSingleGuess, ushort i_CurrentRowToFill)
+        public void AppendSingleGuessResultToBoard(T[] i_PlayerSingleGuessResults, ushort i_CurrentRowToFill)
         {
-
+            for (int i = 0 ; i < i_PlayerSingleGuessResults.Length ; i++)
+            {
+                m_GameBoardArray[i_CurrentRowToFill, i + k_SingleGuessLength] = i_PlayerSingleGuessResults[i];
+            }
         }
-
-
     }
 }
