@@ -9,23 +9,26 @@ namespace Ex02
 {
     public class UserInterface
     {
-        private const ushort k_SecretCodeLength = 4;
         private const ushort k_ColsInGameBoard = 8;
         private GuessingGameLogic<char> m_GameLogic = null;
-        private char[] m_SecretCode = new char[k_SecretCodeLength];
-
 
         public void StartGuessingGame()
         {
-            bool isGameRunning = true;
+            bool isSecretCodeExposed = false;
+            bool isSecretCodeGuessed = false;
 
             initGuessingGame();
-            while(isGameRunning)
+            for (int i = 0; i < m_GameLogic.NumOfGuessings; i++)
             {
-                PrintBoard(true);
+                PrintBoard(isSecretCodeExposed);
+                isSecretCodeGuessed = m_GameLogic.PlayerSingleTurn(getSingleGuessFromUser(), 'V', 'X');
+                if (isSecretCodeGuessed)
+                {
+                    //Player won prints
+                    //Ask if new game
+                    break;
+                }
             }
-
-
 
         }
 
@@ -33,12 +36,13 @@ namespace Ex02
         {
             Ex02.ConsoleUtils.Screen.Clear();
             int arrayIndex = 0;
-            GameBoard<char> board = m_GameLogic.GetBoard(); 
-            char[,] boardArray = board.GetBoard();
+            GameBoard<char> boardToPrint = m_GameLogic.GameBoard;
+            char[,] boardArray = boardToPrint.GameBoardArray;
+            char[] computerSecretCode = m_GameLogic.ComputerSecretCode;
+
             Console.WriteLine("Current board status:\n");
             Console.WriteLine("|Pins:    |Result:|");
             Console.WriteLine("|=========|=======|");
-
 
             if (!i_IsAnswerRevealed)
             {
@@ -46,33 +50,33 @@ namespace Ex02
             }
             else
             {
-                Console.WriteLine("| {0} {1} {2} {3} |       |", m_SecretCode[0], m_SecretCode[1], m_SecretCode[2], m_SecretCode[3]);
+                Console.WriteLine("| {0} {1} {2} {3} |       |", computerSecretCode[0], computerSecretCode[1], computerSecretCode[2], computerSecretCode[3]);
             }
 
-                foreach (char Letter in boardArray)
+            foreach (char Letter in boardArray)
+            {
+                if (boardToPrint.IsStartOfARow(arrayIndex))
                 {
-                    if (board.IsStartOfARow(arrayIndex))
-                    {
-                        Console.Write("| ");
-                    }
-                    else if (board.IsStartOfAResult(arrayIndex))
-                    {
-                        Console.Write("|");
-                    }
-
-                    if (board.IsEndOfARow(arrayIndex + 1))
-                    {
-                        Console.Write("{0}", Letter);
-                        Console.WriteLine("|");
-
-                    }
-                    else
-                    {
-                        Console.Write("{0} ", Letter);
-                    }
-
-                    arrayIndex++;
+                    Console.Write("| ");
                 }
+                else if (boardToPrint.IsStartOfAResult(arrayIndex))
+                {
+                    Console.Write("|");
+                }
+
+                if (boardToPrint.IsEndOfARow(arrayIndex + 1))
+                {
+                    Console.Write("{0}", Letter);
+                    Console.WriteLine("|");
+
+                }
+                else
+                {
+                    Console.Write("{0} ", Letter);
+                }
+
+                arrayIndex++;
+            }
         }
         private static ushort getNumberOfGuessingsFromUser()
         {
@@ -81,39 +85,39 @@ namespace Ex02
 
             Console.WriteLine("Please type positive number (between 4-10) of guessing for your game");
 
-            while(!isCorrectInput)
+            while (!isCorrectInput)
             {
                 isCorrectInput = ushort.TryParse(Console.ReadLine(), out numOfGuessings);
 
-                if(!isCorrectInput)
+                if (!isCorrectInput)
                 {
                     Console.WriteLine("Wrong input type, Please type positive number between 4-10)");
                 }
-                else if(numOfGuessings < 4 || numOfGuessings > 10)
+                else if (numOfGuessings < 4 || numOfGuessings > 10)
                 {
                     Console.WriteLine("The number youve entered should be positive between 4-10, please type again");
                     isCorrectInput = false;
                 }
-                
+
             }
 
             return numOfGuessings;
         }
 
-        private static string getSingleGuessFromUser()
+        private static char[] getSingleGuessFromUser()
         {
             string singleGuess;
 
             Console.WriteLine("Please type your next guess <A B C D> or 'Q' to quit");
             singleGuess = Console.ReadLine();
 
-            while(!isCorrectSingleGuessInput(singleGuess))
+            while (!isCorrectSingleGuessInput(singleGuess))
             {
                 Console.WriteLine("Please type your next guess <A B C D> or 'Q' to quit");
                 singleGuess = Console.ReadLine();
             }
 
-            return singleGuess;
+            return singleGuess.ToCharArray();
         }
 
         private static bool isCorrectSingleGuessInput(string i_InputToCheck)
@@ -125,9 +129,10 @@ namespace Ex02
                 isCorrectInput = false;
                 Console.WriteLine("The length of the input should be 4 chars");
             }
-            else if (!hasDuplicateLetters(i_InputToCheck))
+            else if (hasDuplicateLetters(i_InputToCheck))
             {
                 Console.WriteLine("The input you entered contains duplications - not allowed!");
+                isCorrectInput = false;
             }
             else
             {
@@ -147,7 +152,7 @@ namespace Ex02
 
         private static bool hasDuplicateLetters(string i_InputToCheck)
         {
-            bool isCorrectInput = true;
+            bool isCorrectInput = false;
 
             for (int i = 0; i < i_InputToCheck.Length; i++)
             {
@@ -155,7 +160,7 @@ namespace Ex02
                 {
                     if (i_InputToCheck[i] == i_InputToCheck[j])
                     {
-                        isCorrectInput = false;
+                        isCorrectInput = true;
                         break;
                     }
                 }
@@ -164,30 +169,44 @@ namespace Ex02
             return isCorrectInput;
         }
 
-        private void GenerateSecretCode()
+        private char[] GenerateSecretCode()
         {
             Random rand = new Random();
+            int secretCodeLength = 4;
+            char[] secretCode = new char[secretCodeLength];
+            bool isValidSecretCode = false;
 
-            for (int i = 0; i < k_SecretCodeLength; i++)
+            while (!isValidSecretCode)
             {
-                m_SecretCode[i] = (char)('A' + rand.Next(26)); // אות רנדומלית בין A ל-Z
+                for (int i = 0; i < secretCodeLength; i++)
+                {
+                    secretCode[i] = (char)('A' + rand.Next(8));
+                }
+
+                if (!hasDuplicateLetters(secretCode.ToString()))
+                {
+                    isValidSecretCode = true;
+                }
             }
+
+            return secretCode;
         }
 
         private void initGuessingGame()
         {
             ushort numberOfGuessings;
             char[,] boardCharArray;
+            char[] computerSecretCode;
             GameBoard<char> gameBoard;
 
-            GenerateSecretCode();
             Console.WriteLine("Welcome to Guessing Game");
+            computerSecretCode = GenerateSecretCode();
             numberOfGuessings = getNumberOfGuessingsFromUser();
             boardCharArray = new char[numberOfGuessings, k_ColsInGameBoard];
-            GameBoard<char>.InitFillArray(boardCharArray, ' ');
+            GameBoard<char>.InitBoardArray(boardCharArray, ' ');
             gameBoard = new GameBoard<char>(boardCharArray, numberOfGuessings);
 
-            this.m_GameLogic = new GuessingGameLogic<char>(gameBoard, numberOfGuessings);
+            this.m_GameLogic = new GuessingGameLogic<char>(gameBoard, numberOfGuessings, computerSecretCode);
         }
 
         private GameBoard<char> initGameBoard(ushort i_NumOfGuessings)
@@ -195,7 +214,7 @@ namespace Ex02
             char[,] charArrayOfGameBoard = new char[i_NumOfGuessings, k_ColsInGameBoard];
             GameBoard<char> gameBoard = new GameBoard<char>(charArrayOfGameBoard, i_NumOfGuessings);
 
-            return gameBoard; 
+            return gameBoard;
         }
     }
 }
