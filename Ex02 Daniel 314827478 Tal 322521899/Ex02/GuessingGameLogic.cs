@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex02
 {
-    public class GuessingGameLogic<T>
+    internal class GuessingGameLogic<T>
     {
         private GameBoard<T> m_GameBoard;
         private const ushort k_SecretCodeLength = 4;
@@ -86,7 +86,7 @@ namespace Ex02
             return guessResults.ToArray();
         }
 
-        public bool IsPlayerGuessCorrect(T[] i_PlayerSingleGuessResutls, T i_CorrectSpotSign)
+        private bool IsPlayerGuessCorrect(T[] i_PlayerSingleGuessResutls, T i_CorrectSpotSign)
         {
             bool isCorrectGuess = true;
 
@@ -108,7 +108,5 @@ namespace Ex02
 
             return isCorrectGuess;
         }
-
-
     }
 }

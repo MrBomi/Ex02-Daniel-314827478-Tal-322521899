@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Ex02
 {
 
-    public class GameBoard<T>
+    internal class GameBoard<T>
     {
         private const ushort k_Cols = 8;
         private readonly ushort r_Rows;
@@ -40,7 +40,6 @@ namespace Ex02
             }
         }
 
-
         public void AddSingleGuessToBoard(T[] i_Guess, T[] i_Score, int i_RowIndex)
         {
             for (int i = 0; i < k_Cols; i++)
@@ -59,11 +58,11 @@ namespace Ex02
         public void PrintBoard()
         {
             int arrayIndex = 0;
+
             Console.WriteLine("Current board status:\n");
             Console.WriteLine("|Pins:    |Result:|");
             Console.WriteLine("|=========|=======|");
             Console.WriteLine("| # # # # |       |");
-
             foreach (T Letter in m_GameBoardArray)
             {
                 if (IsStartOfARow(arrayIndex))

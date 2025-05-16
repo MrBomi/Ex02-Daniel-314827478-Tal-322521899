@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ex02
 {
-    public class UserInterface
+    internal class UserInterface
     {
         private const ushort k_ColsInGameBoard = 8;
         private GuessingGameLogic<char> m_GameLogic = null;
@@ -16,50 +16,22 @@ namespace Ex02
 
         public void StartGuessingGame()
         {
-            bool isSecretCodeGuessed = false;
             bool isNewGame = false;
-            char[] singleInputFromUser;
             bool isGameActive = true;
             bool isPlayerWon = false;
 
             while (isGameActive)
             {
+                Ex02.ConsoleUtils.Screen.Clear();
                 initGuessingGame();
-                for (int i = 0; i < m_GameLogic.NumOfGuessings; i++)
+                isPlayerWon = singleGameLoop(ref isGameActive);
+                if(!isGameActive)
                 {
-                    PrintBoard(false);
-                    singleInputFromUser = getSingleGuessFromUser();
-                    if (new string(singleInputFromUser) == "Q")
-                    {
-                        Console.WriteLine("Bye Bye...");
-                        isGameActive = false;
-                        return;
-                    }
-                    else
-                    {
-                        isSecretCodeGuessed = m_GameLogic.PlayerSingleTurn(singleInputFromUser, m_CorrectSpotSign, m_InCorrectSpotSign2);
-                    }
-
-                    if (isSecretCodeGuessed)
-                    {
-                        winningPlayerAnnouncement();
-                        isPlayerWon = true;
-                        break;
-                    }
-                }
-                
-                if(!isPlayerWon)
-                {
-                    loosingPlayerAnnouncement();
+                    break;
                 }
 
                 isNewGame = askForNewGameFromUser();
-                if(isNewGame)
-                {
-                    isPlayerWon = false;
-                    isSecretCodeGuessed = false;
-                }
-                else
+                if(!isNewGame)
                 {
                     Console.Write("Bye Bye...");
                     isGameActive = false;
@@ -67,18 +39,17 @@ namespace Ex02
             }
         }
 
-        public void PrintBoard(bool i_IsSecretCodeRevealed)
+        private void printBoard(bool i_IsSecretCodeRevealed)
         {
-            Ex02.ConsoleUtils.Screen.Clear();
             int arrayIndex = 0;
             GameBoard<char> boardToPrint = m_GameLogic.GameBoard;
             char[,] boardArray = boardToPrint.GameBoardArray;
             char[] computerSecretCode = m_GameLogic.ComputerSecretCode;
 
+            Ex02.ConsoleUtils.Screen.Clear();
             Console.WriteLine("Current board status:\n");
             Console.WriteLine("|Pins:    |Result:|");
             Console.WriteLine("|=========|=======|");
-
             if (!i_IsSecretCodeRevealed)
             {
                 Console.WriteLine("| # # # # |       |");
@@ -114,17 +85,16 @@ namespace Ex02
                 arrayIndex++;
             }
         }
-        private static ushort getNumberOfGuessingsFromUser()
+
+        private ushort getNumberOfGuessingsFromUser()
         {
             ushort numOfGuessings = 0; //Was needed in case of failing in parse
             bool isCorrectInput = false;
 
             Console.WriteLine("Please type positive number (between 4-10) of guessing for your game");
-
             while (!isCorrectInput)
             {
                 isCorrectInput = ushort.TryParse(Console.ReadLine(), out numOfGuessings);
-
                 if (!isCorrectInput)
                 {
                     Console.WriteLine("Wrong input type, Please type positive number between 4-10)");
@@ -134,19 +104,17 @@ namespace Ex02
                     Console.WriteLine("The number youve entered should be positive between 4-10, please type again");
                     isCorrectInput = false;
                 }
-
             }
 
             return numOfGuessings;
         }
 
-        private static char[] getSingleGuessFromUser()
+        private char[] getSingleGuessFromUser()
         {
             string singleGuess;
 
             Console.WriteLine("Please type your next guess <A B C D> or 'Q' to quit");
             singleGuess = Console.ReadLine();
-
             while (!isCorrectSingleGuessInput(singleGuess))
             {
                 Console.WriteLine("Please type your next guess <A B C D> or 'Q' to quit");
@@ -156,7 +124,7 @@ namespace Ex02
             return singleGuess.ToCharArray();
         }
 
-        private static bool isCorrectSingleGuessInput(string i_InputToCheck)
+        private bool isCorrectSingleGuessInput(string i_InputToCheck)
         {
             bool isCorrectInput = true;
 
@@ -189,7 +157,7 @@ namespace Ex02
             return isCorrectInput;
         }
 
-        private static bool hasDuplicateLetters(string i_InputToCheck)
+        private bool hasDuplicateLetters(string i_InputToCheck)
         {
             bool isInputContainDuplications = false;
 
@@ -208,7 +176,7 @@ namespace Ex02
             return isInputContainDuplications;
         }
 
-        private char[] GenerateSecretCode()
+        private char[] generateSecretCode()
         {
             Random rand = new Random();
             int secretCodeLength = 4;
@@ -239,28 +207,20 @@ namespace Ex02
             GameBoard<char> gameBoard;
 
             Console.WriteLine("Welcome to Guessing Game");
-            computerSecretCode = GenerateSecretCode();
+            computerSecretCode = generateSecretCode();
             numberOfGuessings = getNumberOfGuessingsFromUser();
             boardCharArray = new char[numberOfGuessings, k_ColsInGameBoard];
             GameBoard<char>.InitBoardArray(boardCharArray, ' ');
             gameBoard = new GameBoard<char>(boardCharArray, numberOfGuessings);
-
             this.m_GameLogic = new GuessingGameLogic<char>(gameBoard, numberOfGuessings, computerSecretCode);
-        }
-
-        private GameBoard<char> initGameBoard(ushort i_NumOfGuessings)
-        {
-            char[,] charArrayOfGameBoard = new char[i_NumOfGuessings, k_ColsInGameBoard];
-            GameBoard<char> gameBoard = new GameBoard<char>(charArrayOfGameBoard, i_NumOfGuessings);
-
-            return gameBoard;
         }
 
         private void winningPlayerAnnouncement()
         {
-            PrintBoard(true);
+            printBoard(true);
             Console.WriteLine("You guessed after {0} steps!", m_GameLogic.NumOfGuessings);
         }
+
         private bool askForNewGameFromUser()
         {
             string input;
@@ -278,8 +238,45 @@ namespace Ex02
 
         private void loosingPlayerAnnouncement()
         {
-            PrintBoard(true);
+            printBoard(true);
             Console.WriteLine("No more guessing allowed. You lost!");
+        }
+
+        private bool singleGameLoop(ref bool o_IsGameActive) //return true if player won else return false
+        {
+            bool isSecretCodeGuessed = false;
+            char[] singleInputFromUser;
+            bool isPlayerWon = false;
+
+            for (int i = 0; i < m_GameLogic.NumOfGuessings; i++)
+            {
+                printBoard(false);
+                singleInputFromUser = getSingleGuessFromUser();
+                if (new string(singleInputFromUser) == "Q")
+                {
+                    Console.WriteLine("Bye Bye...");
+                    o_IsGameActive = false;
+                    break;
+                }
+                else
+                {
+                    isSecretCodeGuessed = m_GameLogic.PlayerSingleTurn(singleInputFromUser, m_CorrectSpotSign, m_InCorrectSpotSign2);
+                }
+
+                if (isSecretCodeGuessed)
+                {
+                    winningPlayerAnnouncement();
+                    isPlayerWon = true;
+                    break;
+                }
+            }
+
+            if (!isPlayerWon && o_IsGameActive)
+            {
+                loosingPlayerAnnouncement();
+            }
+
+            return isPlayerWon;
         }
     }
 }
