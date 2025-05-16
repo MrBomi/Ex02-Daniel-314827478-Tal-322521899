@@ -13,20 +13,23 @@ namespace Ex02
         private const ushort k_Cols = 8;
         private readonly ushort r_Rows;
         private const ushort k_SingleGuessLength = 4;
-        private T[,] m_GameBoard;
+        private T[,] m_GameBoardArray;
 
-        public GameBoard(T[,] i_GameBoard, ushort i_NumOfGuessings) 
+        public T[,] GameBoardArray
+        {
+            get
+            {
+                return m_GameBoardArray;
+            }
+        }
+
+        public GameBoard(T[,] i_GameBoard, ushort i_NumOfGuessings)
         {
             r_Rows = i_NumOfGuessings; //num of guessing are the num of rows we need
-            m_GameBoard = i_GameBoard;
+            m_GameBoardArray = i_GameBoard;
         }
 
-        public T[,] GetBoard()
-        {
-            return m_GameBoard;
-        }
-
-        public static void InitFillArray<T>(T[,] o_Array, T i_Value)
+        public static void InitBoardArray<T>(T[,] o_Array, T i_Value)
         {
             for (int i = 0; i < o_Array.GetLength(0); i++)
             {
@@ -38,21 +41,20 @@ namespace Ex02
         }
 
 
-        //public void AddGuessAndScoreToBoard(char[] i_Guess, char[] i_Score, int i_RowIndex)
-        //{
-        //    for (int i = 0; i < k_Cols; i++)
-        //    {
-        //        if (i < k_Cols - k_SingleGuessLength)
-        //        {
-        //            m_GameBoard[i_RowIndex, i] = i_Guess[i];
-        //        }
-        //        else
-        //        {
-        //            m_GameBoard[i_RowIndex, i] = i_Score[i % k_SingleGuessLength];
-        //        }
-
-        //    }
-        //}
+        public void AddSingleGuessToBoard(T[] i_Guess, T[] i_Score, int i_RowIndex)
+        {
+            for (int i = 0; i < k_Cols; i++)
+            {
+                if (i < k_SingleGuessLength)
+                {
+                    m_GameBoardArray[i_RowIndex, i] = i_Guess[i];
+                }
+                else
+                {
+                    m_GameBoardArray[i_RowIndex, i] = i_Score[i - k_SingleGuessLength];
+                }
+            }
+        }
 
         public void PrintBoard()
         {
@@ -62,7 +64,7 @@ namespace Ex02
             Console.WriteLine("|=========|=======|");
             Console.WriteLine("| # # # # |       |");
 
-            foreach (T Letter in m_GameBoard)
+            foreach (T Letter in m_GameBoardArray)
             {
                 if (IsStartOfARow(arrayIndex))
                 {
@@ -123,6 +125,17 @@ namespace Ex02
                 return false;
             }
         }
+
+        public void AppendSingleGuessToBoard(T[] i_PlayerSingleGuess, ushort i_CurrentRowToFill)
+        {
+
+        }
+
+        public void AppendSingleGuessResultToBoard(T[] i_PlayerSingleGuess, ushort i_CurrentRowToFill)
+        {
+
+        }
+
 
     }
 }
